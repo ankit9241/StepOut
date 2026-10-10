@@ -1,6 +1,7 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "stepout",
   "private": true,
+  "license": "MIT",
   "sideEffects": false,
   "type": "module",
   "engines": {
@@ -80,7 +81,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
-    "@lovable.dev/vite-tanstack-config": "2.25.3",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.0.0",

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { generateChallengeService } from "@/server/services/challenges";
-import { generateReflectionService } from "@/server/services/reflections";
-import * as aiModule from "@/server/services/ai";
+import { generateChallengeService } from "../src/server/services/challenges";
+import { generateReflectionService } from "../src/server/services/reflections";
+import * as aiModule from "../src/server/services/ai";
 
 describe("AI Services and Fallback Generator", () => {
   beforeEach(() => {

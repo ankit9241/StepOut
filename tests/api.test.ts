@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { handleApiRequest } from "@/server/app";
-import { resetRateLimits } from "@/server/middleware/rate-limiter";
+import { handleApiRequest } from "../src/server/app";
+import { resetRateLimits } from "../src/server/middleware/rate-limiter";
 
 describe("StepOut API Endpoints", () => {
   beforeEach(async () => {

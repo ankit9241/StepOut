@@ -4,7 +4,7 @@ import {
   saveChallengeGeneration,
   saveReflectionEntry,
   closeDb,
-} from "@/server/services/db";
+} from "../src/server/services/db";
 
 describe("Database Service (Optional Persistence)", () => {
   it("reports unconfigured when MONGODB_URI is empty", async () => {

@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { handleApiRequest } from "@/server/app";
-import { resetRateLimits, getClientIp } from "@/server/middleware/rate-limiter";
-import { config } from "@/server/config";
+import { handleApiRequest } from "../src/server/app";
+import { resetRateLimits, getClientIp } from "../src/server/middleware/rate-limiter";
+import { config } from "../src/server/config";
 
 describe("Security and Rate Limiting", () => {
   beforeEach(async () => {

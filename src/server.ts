@@ -48,7 +48,7 @@ import { handleApiRequest } from "./server/app";
 import { registerGracefulShutdown } from "./server/lifecycle";
 
 // Register shutdown handlers on server process
-if (typeof process !== "undefined" && process.on) {
+if (typeof process !== "undefined" && typeof process.on === "function") {
   registerGracefulShutdown();
 }
 
