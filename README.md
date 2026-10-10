@@ -51,18 +51,13 @@ StepOut/
 
 ### `GET /api/health`
 
-Lightweight application health check suitable for Render health probes.
+Fast, lightweight application health check suitable for Render health probes and external uptime monitors (e.g. UptimeRobot). Does not require authentication and does not invoke external AI or database services, ensuring instant sub-millisecond responses without leaking internal infrastructure details.
 
 - **Status:** HTTP 200 OK
 - **Response Format:**
   ```json
   {
-    "status": "ok",
-    "version": "1.0.0",
-    "environment": "production",
-    "timestamp": "2026-10-10T11:00:00.000Z",
-    "ai": { "status": "connected" | "unconfigured" | "unavailable", "provider": "none" },
-    "db": { "status": "connected" | "unconfigured" | "disconnected" }
+    "status": "ok"
   }
   ```
 

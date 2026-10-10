@@ -8,20 +8,18 @@ describe("StepOut API Endpoints", () => {
   });
 
   describe("GET /api/health", () => {
-    it("returns 200 with valid health status", async () => {
+    it("returns 200 with fast lightweight ok status", async () => {
       const req = new Request("http://localhost:3000/api/health", { method: "GET" });
       const res = await handleApiRequest(req);
 
       expect(res.status).toBe(200);
       const data = await res.json();
-      expect(data.status).toBe("ok");
-      expect(data.version).toBe("1.0.0");
-      expect(data.ai).toBeDefined();
-      expect(data.db).toBeDefined();
-      // Ensure no sensitive fields leaked
+      expect(data).toEqual({ status: "ok" });
+      // Ensure no sensitive or diagnostic fields leaked
       expect(data.password).toBeUndefined();
       expect(data.apiKey).toBeUndefined();
       expect(data.connectionString).toBeUndefined();
+      expect(data.keepAlive).toBeUndefined();
     });
 
     it("rejects POST on health endpoint with 405 Method Not Allowed", async () => {
