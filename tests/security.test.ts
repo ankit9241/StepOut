@@ -1,0 +1,139 @@
+import { describe, expect, it, beforeEach } from "vitest";
+import { handleApiRequest } from "@/server/app";
+import { resetRateLimits } from "@/server/middleware/rate-limiter";
+import { config } from "@/server/config";
+
+describe("Security and Rate Limiting", () => {
+  beforeEach(() => {
+    resetRateLimits();
+  });
+
+  describe("Security Headers", () => {
+    it("attaches required security headers to all responses", async () => {
+      const req = new Request("http://localhost:3000/api/health", { method: "GET" });
+      const res = await handleApiRequest(req);
+
+      expect(res.headers.get("X-Content-Type-Options")).toBe("nosniff");
+      expect(res.headers.get("X-Frame-Options")).toBe("DENY");
+      expect(res.headers.get("X-XSS-Protection")).toBe("0");
+      expect(res.headers.get("Referrer-Policy")).toBe("strict-origin-when-cross-origin");
+      expect(res.headers.get("Content-Security-Policy")).toBeTruthy();
+      expect(res.headers.get("X-Powered-By")).toBeNull();
+    });
+  });
+
+  describe("CORS Handling", () => {
+    it("handles OPTIONS preflight for allowed origin", async () => {
+      const req = new Request("http://localhost:3000/api/challenges/generate", {
+        method: "OPTIONS",
+        headers: {
+          Origin: "http://localhost:3000",
+          "Access-Control-Request-Method": "POST",
+        },
+      });
+
+      const res = await handleApiRequest(req);
+      expect(res.status).toBe(204);
+      expect(res.headers.get("Access-Control-Allow-Origin")).toBe("http://localhost:3000");
+    });
+  });
+
+  describe("Rate Limiting", () => {
+    it("enforces rate limits on challenge generation and returns 429", async () => {
+      const payload = {
+        durationMinutes: 5,
+        environment: "park",
+        category: "notice",
+        difficulty: "easy",
+      };
+
+      const ip = "192.168.1.100";
+      const limit = config.RATE_LIMIT_CHALLENGES_MAX;
+
+      // Exhaust limit
+      for (let i = 0; i < limit; i++) {
+        const req = new Request("http://localhost:3000/api/challenges/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Forwarded-For": ip,
+          },
+          body: JSON.stringify(payload),
+        });
+        const res = await handleApiRequest(req);
+        expect(res.status).toBe(200);
+      }
+
+      // Next request must be rate limited
+      const blockedReq = new Request("http://localhost:3000/api/challenges/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Forwarded-For": ip,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const blockedRes = await handleApiRequest(blockedReq);
+      expect(blockedRes.status).toBe(429);
+      expect(blockedRes.headers.get("Retry-After")).toBeTruthy();
+      const blockedData = await blockedRes.json();
+      expect(blockedData.error).toBe("Too Many Requests");
+      expect(blockedData.retryAfter).toBeGreaterThan(0);
+    });
+
+    it("isolates rate limit buckets between different client IPs", async () => {
+      const payload = {
+        challengeTitle: "The quietest sound",
+        observation: "Heard birds chirping in the distance.",
+      };
+
+      const ipA = "10.0.0.1";
+      const ipB = "10.0.0.2";
+      const limit = config.RATE_LIMIT_REFLECTIONS_MAX;
+
+      // Exhaust for IP A
+      for (let i = 0; i < limit; i++) {
+        const req = new Request("http://localhost:3000/api/reflections/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Forwarded-For": ipA,
+          },
+          body: JSON.stringify(payload),
+        });
+        await handleApiRequest(req);
+      }
+
+      // IP A is blocked
+      const reqA = new Request("http://localhost:3000/api/reflections/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Forwarded-For": ipA,
+        },
+        body: JSON.stringify(payload),
+      });
+      const resA = await handleApiRequest(reqA);
+      expect(resA.status).toBe(429);
+
+      // IP B is still allowed
+      const reqB = new Request("http://localhost:3000/api/reflections/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Forwarded-For": ipB,
+        },
+        body: JSON.stringify(payload),
+      });
+      const resB = await handleApiRequest(reqB);
+      expect(resB.status).toBe(200);
+    });
+
+    it("does not block health check under general traffic", async () => {
+      const req = new Request("http://localhost:3000/api/health", { method: "GET" });
+      const res = await handleApiRequest(req);
+      expect(res.status).toBe(200);
+    });
+  });
+});
