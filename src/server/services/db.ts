@@ -96,10 +96,19 @@ export async function saveReflectionEntry(data: Record<string, unknown>): Promis
   try {
     const db = await getDb();
     if (!db) return;
-    await db.collection("reflections").insertOne({
-      ...data,
+    // Privacy: never store raw observation or reflection text; preserve only operational metrics
+    const sanitizedRecord = {
+      challengeTitle: data["challengeTitle"],
+      observationLength:
+        typeof data["observation"] === "string"
+          ? data["observation"].length
+          : typeof data["observationLength"] === "number"
+            ? data["observationLength"]
+            : 0,
+      source: data["source"] || "builtin",
       savedAt: new Date(),
-    });
+    };
+    await db.collection("reflections").insertOne(sanitizedRecord);
   } catch (err) {
     console.error(
       "[DB] Failed to persist reflection record:",

@@ -121,7 +121,8 @@ Processes an observation and generates a mindful, encouraging reflection.
 
 ### Prerequisites
 
-- Node.js >= 20.x or Bun >= 1.2
+- Node.js >= 20.x
+- npm >= 10.x
 - Git
 
 ### Installation
@@ -131,16 +132,14 @@ Processes an observation and generates a mindful, encouraging reflection.
 git clone <repository-url>
 cd StepOut-new
 
-# Install dependencies
-bun install
-# or: npm install
+# Install dependencies with lockfile consistency
+npm ci
 ```
 
 ### Local Development
 
 ```bash
-bun run dev
-# or: npm run dev
+npm run dev
 ```
 
 The dev server starts on `http://localhost:8080/`. Both the frontend and API routes (`/api/*`) are available on this origin.
@@ -148,15 +147,13 @@ The dev server starts on `http://localhost:8080/`. Both the frontend and API rou
 ### Running Tests
 
 ```bash
-bun run test
-# or: npm test
+npm test
 ```
 
 ### Building for Production
 
 ```bash
-bun run build
-# or: npm run build
+npm run build
 ```
 
 Compiles client bundles and generates the unified Node.js standalone server into `.output/server/index.mjs`.
@@ -165,7 +162,7 @@ Compiles client bundles and generates the unified Node.js standalone server into
 
 ```bash
 export PORT=3000
-bun run start
+npm start
 # or: node .output/server/index.mjs
 ```
 
@@ -175,14 +172,15 @@ bun run start
 
 Deploying StepOut to Render requires only **one Web Service**:
 
-| Setting               | Value                                                              |
-| --------------------- | ------------------------------------------------------------------ |
-| **Environment**       | Node                                                               |
-| **Root Directory**    | `.` (repository root)                                              |
-| **Build Command**     | `npm install && npm run build` (or `bun install && bun run build`) |
-| **Start Command**     | `npm run start` (or `node .output/server/index.mjs`)               |
-| **Health Check Path** | `/api/health`                                                      |
-| **Auto-Deploy**       | Yes (on push to main branch)                                       |
+| Setting               | Value                                            |
+| --------------------- | ------------------------------------------------ |
+| **Environment**       | Node                                             |
+| **Node Version**      | `>= 20.0.0`                                      |
+| **Root Directory**    | `.` (repository root)                            |
+| **Build Command**     | `npm ci && npm run build`                        |
+| **Start Command**     | `npm start` (or `node .output/server/index.mjs`) |
+| **Health Check Path** | `/api/health`                                    |
+| **Auto-Deploy**       | Yes (on push to main branch)                     |
 
 No second backend service or frontend static site is needed.
 

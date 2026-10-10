@@ -34,8 +34,7 @@ export async function generateReflectionService(
   if (aiText) {
     await saveReflectionEntry({
       challengeTitle: input.challengeTitle,
-      observation: input.observation,
-      reflection: aiText,
+      observationLength: input.observation.length,
       source: "gemma",
     });
     return { reflection: aiText };
@@ -45,8 +44,7 @@ export async function generateReflectionService(
   const fallbackText = pickFallbackReflection(input.observation);
   await saveReflectionEntry({
     challengeTitle: input.challengeTitle,
-    observation: input.observation,
-    reflection: fallbackText,
+    observationLength: input.observation.length,
     source: "builtin",
   });
   return { reflection: fallbackText };

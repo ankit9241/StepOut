@@ -19,7 +19,7 @@ export async function handleApiRequest(request: Request): Promise<Response> {
   // General rate limiting (excluding health check)
   if (pathname !== "/api/health") {
     const clientIp = getClientIp(request);
-    const generalLimit = checkRateLimit(clientIp, "general");
+    const generalLimit = await checkRateLimit(clientIp, "general");
     if (!generalLimit.allowed) {
       const headers = new Headers({
         "Content-Type": "application/json",

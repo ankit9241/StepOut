@@ -21,7 +21,7 @@ export async function handleChallenges(request: Request): Promise<Response> {
   }
 
   const clientIp = getClientIp(request);
-  const rateLimit = checkRateLimit(clientIp, "challenges");
+  const rateLimit = await checkRateLimit(clientIp, "challenges");
   if (!rateLimit.allowed) {
     return new Response(
       JSON.stringify({

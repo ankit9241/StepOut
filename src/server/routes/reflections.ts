@@ -21,7 +21,7 @@ export async function handleReflections(request: Request): Promise<Response> {
   }
 
   const clientIp = getClientIp(request);
-  const rateLimit = checkRateLimit(clientIp, "reflections");
+  const rateLimit = await checkRateLimit(clientIp, "reflections");
   if (!rateLimit.allowed) {
     return new Response(
       JSON.stringify({

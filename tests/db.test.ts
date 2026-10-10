@@ -21,12 +21,13 @@ describe("Database Service (Optional Persistence)", () => {
     ).resolves.not.toThrow();
   });
 
-  it("handles reflection persistence smoothly when DB is unconfigured", async () => {
+  it("handles reflection operational logging smoothly and redacts raw content", async () => {
     await expect(
       saveReflectionEntry({
         challengeTitle: "Test Challenge",
-        observation: "Test Observation",
-        reflection: "Test Reflection",
+        observation: "User personal observation text that must not be stored",
+        reflection: "User reflection text that must not be stored",
+        source: "builtin",
       }),
     ).resolves.not.toThrow();
   });

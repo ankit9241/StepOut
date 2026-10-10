@@ -3,8 +3,8 @@ import { handleApiRequest } from "@/server/app";
 import { resetRateLimits } from "@/server/middleware/rate-limiter";
 
 describe("StepOut API Endpoints", () => {
-  beforeEach(() => {
-    resetRateLimits();
+  beforeEach(async () => {
+    await resetRateLimits();
   });
 
   describe("GET /api/health", () => {

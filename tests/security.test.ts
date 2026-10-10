@@ -1,11 +1,11 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { handleApiRequest } from "@/server/app";
-import { resetRateLimits } from "@/server/middleware/rate-limiter";
+import { resetRateLimits, getClientIp } from "@/server/middleware/rate-limiter";
 import { config } from "@/server/config";
 
 describe("Security and Rate Limiting", () => {
-  beforeEach(() => {
-    resetRateLimits();
+  beforeEach(async () => {
+    await resetRateLimits();
   });
 
   describe("Security Headers", () => {
@@ -38,8 +38,34 @@ describe("Security and Rate Limiting", () => {
     });
   });
 
-  describe("Rate Limiting", () => {
-    it("enforces rate limits on challenge generation and returns 429", async () => {
+  describe("Client IP and Proxy Extraction for Render", () => {
+    it("prioritizes CF-Connecting-IP when available behind Render Cloudflare edge", () => {
+      const req = new Request("http://localhost:3000/api/health", {
+        headers: {
+          "cf-connecting-ip": "203.0.113.195",
+          "x-forwarded-for": "198.51.100.1, 10.0.0.1",
+        },
+      });
+      expect(getClientIp(req)).toBe("203.0.113.195");
+    });
+
+    it("extracts the first client IP in X-Forwarded-For if CF-Connecting-IP is absent", () => {
+      const req = new Request("http://localhost:3000/api/health", {
+        headers: {
+          "x-forwarded-for": "198.51.100.42, 10.0.0.1",
+        },
+      });
+      expect(getClientIp(req)).toBe("198.51.100.42");
+    });
+
+    it("falls back to 127.0.0.1 when no proxy headers are present", () => {
+      const req = new Request("http://localhost:3000/api/health");
+      expect(getClientIp(req)).toBe("127.0.0.1");
+    });
+  });
+
+  describe("Rate Limiting Enforcement & Recovery", () => {
+    it("enforces rate limits on challenge generation and recovers after reset", async () => {
       const payload = {
         durationMinutes: 5,
         environment: "park",
@@ -80,6 +106,20 @@ describe("Security and Rate Limiting", () => {
       const blockedData = await blockedRes.json();
       expect(blockedData.error).toBe("Too Many Requests");
       expect(blockedData.retryAfter).toBeGreaterThan(0);
+
+      // Recovery test: after resetting rate limits (or window expiring), requests succeed again
+      await resetRateLimits();
+
+      const recoveredReq = new Request("http://localhost:3000/api/challenges/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Forwarded-For": ip,
+        },
+        body: JSON.stringify(payload),
+      });
+      const recoveredRes = await handleApiRequest(recoveredReq);
+      expect(recoveredRes.status).toBe(200);
     });
 
     it("isolates rate limit buckets between different client IPs", async () => {
