@@ -4,15 +4,18 @@ export const CATEGORIES = ["notice", "listen", "find", "observe", "reflect"] as 
 export const DIFFICULTIES = ["easy", "curious", "exploratory"] as const;
 export const DURATIONS = [3, 5, 10, 15] as const;
 export const ENVIRONMENTS = ["home", "neighbourhood", "park", "urban"] as const;
+export const CONSTRAINTS = ["none", "seated", "quiet", "indoor_adjacent"] as const;
 
 export const PreferencesSchema = z.object({
   durationMinutes: z.coerce.number().int().min(1).max(60),
   environment: z.enum(ENVIRONMENTS),
   category: z.enum(CATEGORIES),
   difficulty: z.enum(DIFFICULTIES),
+  constraint: z.enum(CONSTRAINTS).optional().default("none"),
 });
 
-export type ValidatedPreferences = z.infer<typeof PreferencesSchema>;
+export type ValidatedPreferences = z.output<typeof PreferencesSchema>;
+export type InputPreferences = z.input<typeof PreferencesSchema>;
 
 export const ReflectionInputSchema = z.object({
   challengeTitle: z
@@ -25,6 +28,9 @@ export const ReflectionInputSchema = z.object({
     .trim()
     .min(1, "Observation is required")
     .max(1000, "Observation cannot exceed 1000 characters"),
+  step: z.enum(["follow_up", "synthesis"]).optional(),
+  followUpQuestion: z.string().trim().max(300).optional(),
+  followUpAnswer: z.string().trim().max(1000).optional(),
 });
 
 export type ValidatedReflectionInput = z.infer<typeof ReflectionInputSchema>;

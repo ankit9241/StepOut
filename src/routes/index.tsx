@@ -162,18 +162,18 @@ function Index() {
             {[
               [
                 "01",
-                "Get a challenge",
-                "Gemma creates a small, practical task inspired by the world around you — or a built-in one if AI is offline.",
+                "Personalized mission",
+                "Gemma shapes a grounded, realistic mission tailored to your surroundings and accessibility needs — with instant built-in fallback.",
               ],
               [
                 "02",
-                "Leave the screen",
-                "Put your phone away. Step outside. Notice something real.",
+                "The disappear moment",
+                "Put your phone away. Lock the screen. The physical world becomes the entire experience.",
               ],
               [
                 "03",
-                "Come back with proof",
-                "Record what happened. Your entry is honestly labelled as self-reported.",
+                "Adaptive field report",
+                "Return for a responsive dialogue and an editorial field report honestly preserved on your device.",
               ],
             ].map(([n, t, d], i) => (
               <li

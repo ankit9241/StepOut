@@ -1,4 +1,9 @@
-import type { ServerChallenge, ValidatedPreferences } from "../schemas";
+import {
+  PreferencesSchema,
+  type InputPreferences,
+  type ServerChallenge,
+  type ValidatedPreferences,
+} from "../schemas";
 import { generateAiChallenge } from "./ai";
 import { saveChallengeGeneration } from "./db";
 
@@ -93,9 +98,10 @@ function hash(s: string): number {
 }
 
 export function generateBuiltinChallenge(
-  p: ValidatedPreferences,
+  rawP: ValidatedPreferences | InputPreferences,
   now = new Date(),
 ): ServerChallenge {
+  const p = PreferencesSchema.parse(rawP);
   const pool = TEMPLATES[p.category];
   const seed = hash(`${p.category}|${p.environment}|${p.difficulty}|${p.durationMinutes}`);
   const t = pool[seed % pool.length]!;
@@ -122,7 +128,10 @@ export function generateBuiltinChallenge(
   };
 }
 
-export async function generateChallengeService(p: ValidatedPreferences): Promise<ServerChallenge> {
+export async function generateChallengeService(
+  rawP: ValidatedPreferences | InputPreferences,
+): Promise<ServerChallenge> {
+  const p = PreferencesSchema.parse(rawP);
   // Attempt AI generation
   const aiChallenge = await generateAiChallenge(p);
   if (aiChallenge) {

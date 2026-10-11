@@ -42,3 +42,22 @@ describe("challenges", () => {
     ).toBeNull();
   });
 });
+
+import { extractCleanText } from "@/lib/utils";
+
+describe("extractCleanText", () => {
+  it("extracts text from raw JSON object strings like { 'question': '...' }", () => {
+    const raw = '{ "question": "What specifically made you pause during that moment?" }';
+    expect(extractCleanText(raw)).toBe("What specifically made you pause during that moment?");
+  });
+
+  it("handles markdown code blocks wrapping JSON", () => {
+    const raw = '```json\n{ "question": "Did the shadow shift as you watched?" }\n```';
+    expect(extractCleanText(raw)).toBe("Did the shadow shift as you watched?");
+  });
+
+  it("handles plain text strings with or without surrounding quotes", () => {
+    expect(extractCleanText('"What did you hear?"')).toBe("What did you hear?");
+    expect(extractCleanText("What did you hear?")).toBe("What did you hear?");
+  });
+});

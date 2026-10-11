@@ -21,13 +21,19 @@ export interface ChallengeReflection {
   challengeTitle: string;
   sessionId: string;
   observation: string;
+  promptQuestion?: string | undefined;
+  followUpQuestion?: string | undefined;
+  followUpAnswer?: string | undefined;
+  aiReflection?: string | null | undefined;
+  aiInsight?: string | null | undefined;
+  takeaway?: string | null | undefined;
   discoveries: string[];
   mood?: string | undefined;
   actualMinutes: number;
   evidenceStatus: "none" | "submitted";
   verificationMethod: "self_report" | "evidence_submitted";
-  aiReflection?: string;
   createdAt: string;
+  date?: string | undefined;
 }
 
 const KEYS = {

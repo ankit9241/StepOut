@@ -1,0 +1,307 @@
+[
+  {
+    "testNum": 1,
+    "input": {
+      "category": "notice",
+      "environment": "park",
+      "durationMinutes": 5,
+      "constraint": "none",
+      "difficulty": "easy"
+    },
+    "elapsedSec": "35.7",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3ik7sv-oo0u",
+      "title": "Stone’s Silent Language",
+      "description": "Observe the subtle stories etched into the park’s surfaces – the textures and shapes that reveal the passage of time and the elements.",
+      "durationMinutes": 5,
+      "difficulty": "easy",
+      "category": "notice",
+      "environment": "park",
+      "steps": [
+        "Lock your phone and step into the park. Find a bench made of stone or concrete.",
+        "Run your hand along the bench’s surface, paying close attention to the grain of the stone and the way the light falls on it.",
+        "Look at the base of a nearby tree, noticing the different textures of the bark – smooth patches, rough ridges, and areas where it’s been worn away.",
+        "Examine a paving stone, focusing on the tiny cracks and irregularities in the surface."
+      ],
+      "curiosityPrompt": "What secrets does each surface hold?",
+      "safetyNote": "Be mindful of your surroundings and take care on uneven ground.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:40:37.375Z"
+    }
+  },
+  {
+    "testNum": 2,
+    "input": {
+      "category": "notice",
+      "environment": "urban",
+      "durationMinutes": 10,
+      "constraint": "seated",
+      "difficulty": "curious"
+    },
+    "elapsedSec": "18.6",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3ikn4g-data",
+      "title": "Brick Veins",
+      "description": "Observe the intricate patterns of aging brickwork – the subtle shifts in color and the textured seams where the mortar has eroded.",
+      "durationMinutes": 10,
+      "difficulty": "curious",
+      "category": "notice",
+      "environment": "urban",
+      "steps": [
+        "Lock your phone. Focus your gaze on the nearest brick building. Notice the varying shades of red, brown, and orange within the brick itself.",
+        "Trace a line with your finger along a section of exposed mortar. Feel the smoothness of the newer mortar and the roughness of the weathered older mortar.",
+        "Identify at least three distinct ‘veins’ – areas where the brick is particularly worn or discolored – and mentally map their shapes."
+      ],
+      "curiosityPrompt": "What stories do these brick veins tell about the building’s history?",
+      "safetyNote": "Remain seated and aware of your surroundings. Take breaks if you feel any discomfort.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:40:57.232Z"
+    }
+  },
+  {
+    "testNum": 3,
+    "input": {
+      "category": "listen",
+      "environment": "home",
+      "durationMinutes": 5,
+      "constraint": "quiet",
+      "difficulty": "easy"
+    },
+    "elapsedSec": "24.6",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3il65k-hh1o",
+      "title": "Stone’s Quiet Breath",
+      "description": "Tune into the subtle sounds revealing the hidden life within your home’s surfaces and air.",
+      "durationMinutes": 5,
+      "difficulty": "easy",
+      "category": "listen",
+      "environment": "home",
+      "steps": [
+        "Lock your phone. Find a comfortable space near a wall or window. Close your eyes for 30 seconds and simply listen for the sounds of the wall itself – the faint vibration, the slight hum, the way the air moves across it.",
+        "Spend 1 minute noticing the sounds coming from the floor beneath your feet. Focus on the grain of the floor, the way your footsteps create subtle echoes, and the quiet shifts in air pressure.",
+        "For the final 2 minutes, listen intently to the sounds passing through an open window or door – the breeze, distant traffic (if any, but note its distance), or even the sounds of your own home’s ventilation system. Pay attention to the changes in volume and texture."
+      ],
+      "curiosityPrompt": "What does the space *feel* like, not just sound like?",
+      "safetyNote": "Ensure the area is safe – clear of tripping hazards. Maintain a comfortable temperature.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:41:21.896Z"
+    }
+  },
+  {
+    "testNum": 4,
+    "input": {
+      "category": "listen",
+      "environment": "neighbourhood",
+      "durationMinutes": 10,
+      "constraint": "none",
+      "difficulty": "exploratory"
+    },
+    "elapsedSec": "22.1",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3iln8m-8mnf",
+      "title": "Stone & Rust",
+      "description": "Become attuned to the subtle conversations happening just beyond your hearing – the sounds of the street and the building’s age.",
+      "durationMinutes": 10,
+      "difficulty": "exploratory",
+      "category": "listen",
+      "environment": "neighbourhood",
+      "steps": [
+        "Lock your phone. Close your eyes briefly and take three deep breaths, focusing on the quiet of the moment.",
+        "Walk along the sidewalk, paying attention to the distinct sounds of pavement – the grainy texture underfoot, the subtle shifts in tone as you move.",
+        "Stand before a building’s facade. Identify the most prominent sounds: the rustle of leaves in nearby trees, the distant hum of traffic, the individual sounds of footsteps and voices passing by. Note any reverberations from the building’s structure.",
+        "Listen specifically for the sounds emanating from doorways and windowsills – the subtle shift in air currents, the quiet creaks of old building materials."
+      ],
+      "curiosityPrompt": "What stories do the stone and metal of this place whisper?",
+      "safetyNote": "Be aware of your surroundings and maintain a safe distance from traffic.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:41:44.038Z"
+    }
+  },
+  {
+    "testNum": 5,
+    "input": {
+      "category": "find",
+      "environment": "neighbourhood",
+      "durationMinutes": 5,
+      "constraint": "none",
+      "difficulty": "curious"
+    },
+    "elapsedSec": "19.7",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3im2fp-gv95",
+      "title": "Stone & Shade",
+      "description": "Observe the subtle interplay between the textures of brick and the shifting patterns of shadow cast by buildings.",
+      "durationMinutes": 5,
+      "difficulty": "curious",
+      "category": "find",
+      "environment": "neighbourhood",
+      "steps": [
+        "Lock your phone. Step outside and find a brick wall or building facade. Focus on the texture of the brick – note its roughness, color variations, and any signs of weathering.",
+        "Within 2 minutes, identify the darkest shadow cast by the building. Consider its shape, size, and how it changes as the sun moves (even slightly).",
+        "Find a second brick (or similar textured surface) within a 30-foot radius where the shadow from the first brick falls. Observe how the shadow’s form changes on this second brick."
+      ],
+      "curiosityPrompt": "What does ‘dark’ truly *feel* like in this moment?",
+      "safetyNote": "Be mindful of your surroundings and traffic. Take your time to observe carefully.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:42:03.733Z"
+    }
+  },
+  {
+    "testNum": 6,
+    "input": {
+      "category": "find",
+      "environment": "urban",
+      "durationMinutes": 15,
+      "constraint": "seated",
+      "difficulty": "exploratory"
+    },
+    "elapsedSec": "21.5",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3imj2g-ma44",
+      "title": "Brickline Reflections",
+      "description": "Observe the subtle variations in color and texture of brick surfaces, noticing how they shift with the light and cast shadows.",
+      "durationMinutes": 15,
+      "difficulty": "exploratory",
+      "category": "find",
+      "environment": "urban",
+      "steps": [
+        "Lock your phone. Scan your immediate surroundings for brick walls or structures – look for variations in brick color and texture. Focus on how the brick reflects the light.",
+        "Identify at least three brick surfaces with noticeably different shades of red, brown, or grey. Note the specific textures you observe – are they smooth, rough, weathered?",
+        "Observe the shadows cast by the brick. How do they change as the light shifts, and do they create contrasting patterns on the pavement or ground?"
+      ],
+      "curiosityPrompt": "What is the story each brick seems to hold?",
+      "safetyNote": "Remain seated and aware of your surroundings. Take breaks if needed.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:42:25.288Z"
+    }
+  },
+  {
+    "testNum": 7,
+    "input": {
+      "category": "observe",
+      "environment": "park",
+      "durationMinutes": 5,
+      "constraint": "none",
+      "difficulty": "easy"
+    },
+    "elapsedSec": "17.1",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3imw9o-jjh5",
+      "title": "Shifting Leaf Veins",
+      "description": "Notice how the light and wind sculpt the patterns of leaves on the trees, revealing a constant, subtle transformation.",
+      "durationMinutes": 5,
+      "difficulty": "easy",
+      "category": "observe",
+      "environment": "park",
+      "steps": [
+        "Lock your phone. Find a spot beneath a tree with multiple branches.",
+        "Observe the way the leaves move in the breeze – focusing on the delicate vein patterns.",
+        "Track how the shadows of the leaves change as the light shifts, noting the subtle variations in color and form."
+      ],
+      "curiosityPrompt": "What tiny details of the leaves’ movement are you most drawn to?",
+      "safetyNote": "Be mindful of your surroundings and take a moment to appreciate the natural beauty around you.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:42:42.396Z"
+    }
+  },
+  {
+    "testNum": 8,
+    "input": {
+      "category": "observe",
+      "environment": "home",
+      "durationMinutes": 3,
+      "constraint": "indoor_adjacent",
+      "difficulty": "curious"
+    },
+    "elapsedSec": "22.8",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3indtj-ww7k",
+      "title": "Shifting Stone Veins",
+      "description": "Notice how the light and shadow play across the textures of your home's surfaces, revealing hidden patterns and slow, subtle changes.",
+      "durationMinutes": 3,
+      "difficulty": "curious",
+      "category": "observe",
+      "environment": "home",
+      "steps": [
+        "Lock your phone and step outside to your window or balcony. Observe the way sunlight interacts with the stone or brick of your building’s exterior.",
+        "Focus on a single stone or tile joint – a crack, a ridge, or a particularly textured area. Watch how the light shifts across it every 30 seconds.",
+        "Consider the subtle movement of air passing through the window or across the surface – how does this airflow affect the patterns of light and shadow on the stone?",
+        "Spend your remaining time deepening your observation of the stone veins, noticing how they seem to emerge and recede with the changing light."
+      ],
+      "curiosityPrompt": "What stories do these shifting lines hold?",
+      "safetyNote": "Ensure you have a clear, unobstructed view from your window or balcony and be mindful of your surroundings.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:43:05.143Z"
+    }
+  },
+  {
+    "testNum": 9,
+    "input": {
+      "category": "reflect",
+      "environment": "home",
+      "durationMinutes": 10,
+      "constraint": "indoor_adjacent",
+      "difficulty": "curious"
+    },
+    "elapsedSec": "30.9",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3io1p1-zy0i",
+      "title": "Stone & Shifting Light",
+      "description": "Observe the subtle textures and patterns of your immediate surroundings, noticing how light transforms the solidity of stone and wood.",
+      "durationMinutes": 10,
+      "difficulty": "curious",
+      "category": "reflect",
+      "environment": "home",
+      "steps": [
+        "Lock your phone. Find a place – a windowsill, doorway, or a patch of floor – where you can comfortably stand still for a few minutes.",
+        "Close your eyes briefly and take three deep, slow breaths, focusing on the feeling of your feet on the surface beneath you. Notice the temperature shift with each breath.",
+        "Open your eyes and spend 3 minutes deliberately scanning the textures around you: the grain of a wooden table, the coolness of a tile, the shadow of a plant. Let your gaze linger on details.",
+        "Shift your focus to the light. How does it change the appearance of a stone wall or a piece of furniture? Observe how the light creates movement and depth.",
+        "Spend your final minute simply being present with the shapes and textures, allowing your awareness to rest on the details of the space."
+      ],
+      "curiosityPrompt": "What color is the light reflecting on the smallest surface?",
+      "safetyNote": "Ensure you have a clear, safe space to move around and that you are comfortable with your surroundings.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:43:36.085Z"
+    }
+  },
+  {
+    "testNum": 10,
+    "input": {
+      "category": "reflect",
+      "environment": "neighbourhood",
+      "durationMinutes": 5,
+      "constraint": "seated",
+      "difficulty": "easy"
+    },
+    "elapsedSec": "25.1",
+    "status": 200,
+    "data": {
+      "id": "gemma-mv3iol1g-siht",
+      "title": "Stone & Shadow",
+      "description": "Observe the subtle textures and patterns that emerge between buildings and the shifting shapes created by light and shade.",
+      "durationMinutes": 5,
+      "difficulty": "easy",
+      "category": "reflect",
+      "environment": "neighbourhood",
+      "steps": [
+        "Lock your phone. Find a comfortable seat – a bench, porch step, or chair – and settle into stillness. Notice the feeling of the surface beneath you.",
+        "Focus on the texture of the closest building’s facade – the brick, stone, or siding. Pay attention to the small variations in color and surface.",
+        "Observe the shadows cast by the building and any surrounding objects. How do they change as the light shifts? Notice the shapes they create on the ground or adjacent surfaces."
+      ],
+      "curiosityPrompt": "What is the most interesting small detail you’ve discovered in the shadow?",
+      "safetyNote": "Remain seated and be mindful of your surroundings – watch out for uneven surfaces or traffic.",
+      "generationMode": "gemma",
+      "createdAt": "2026-10-11T07:44:01.156Z"
+    }
+  }
+]

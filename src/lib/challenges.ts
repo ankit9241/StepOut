@@ -9,10 +9,12 @@ export const CATEGORIES = ["notice", "listen", "find", "observe", "reflect"] as 
 export const DIFFICULTIES = ["easy", "curious", "exploratory"] as const;
 export const DURATIONS = [3, 5, 10, 15] as const;
 export const ENVIRONMENTS = ["home", "neighbourhood", "park", "urban"] as const;
+export const CONSTRAINTS = ["none", "seated", "quiet", "indoor_adjacent"] as const;
 
 export type ChallengeCategory = (typeof CATEGORIES)[number];
 export type ChallengeDifficulty = (typeof DIFFICULTIES)[number];
 export type Environment = (typeof ENVIRONMENTS)[number];
+export type MissionConstraint = (typeof CONSTRAINTS)[number];
 export type GenerationMode = "gemma" | "builtin";
 
 export interface Challenge {
@@ -35,7 +37,15 @@ export interface Preferences {
   environment: Environment;
   category: ChallengeCategory;
   difficulty: ChallengeDifficulty;
+  constraint?: MissionConstraint;
 }
+
+export const CONSTRAINT_LABEL: Record<MissionConstraint, string> = {
+  none: "No constraints",
+  seated: "Seated / low mobility",
+  quiet: "Quiet / low distraction",
+  indoor_adjacent: "Indoor-adjacent / balcony",
+};
 
 export const ENV_LABEL: Record<Environment, string> = {
   home: "Home or balcony",

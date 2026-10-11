@@ -1,4 +1,5 @@
 import { generateBuiltin, validateChallenge, type Challenge, type Preferences } from "./challenges";
+import { extractCleanText } from "./utils";
 
 /**
  * Base URL for API requests.
@@ -75,21 +76,56 @@ export async function generateChallenge(p: Preferences): Promise<GenerateResult>
   }
 }
 
-export async function generateReflection(input: {
+export interface ReflectionApiResult {
+  reflection: string | null;
+  followUpQuestion?: string | null | undefined;
+  insight?: string | null | undefined;
+  takeaway?: string | null | undefined;
+  generationMode?: "gemma" | "builtin" | undefined;
+}
+
+export async function requestReflection(input: {
   challengeTitle: string;
   observation: string;
-}): Promise<string | null> {
-  if (!input.observation.trim()) return null;
+  step?: "follow_up" | "synthesis" | undefined;
+  followUpQuestion?: string | undefined;
+  followUpAnswer?: string | undefined;
+}): Promise<ReflectionApiResult> {
+  if (!input.observation.trim()) return { reflection: null };
   try {
     const data = (await request(
       "/api/reflections/generate",
       { method: "POST", body: JSON.stringify(input) },
       25000,
-    )) as { reflection?: unknown };
-    return typeof data?.reflection === "string" && data.reflection.trim()
-      ? data.reflection.trim().slice(0, 600)
-      : null;
+    )) as {
+      reflection?: unknown;
+      followUpQuestion?: unknown;
+      insight?: unknown;
+      takeaway?: unknown;
+      generationMode?: unknown;
+    };
+    const rawRef = typeof data?.reflection === "string" ? extractCleanText(data.reflection) : "";
+    const rawQ =
+      typeof data?.followUpQuestion === "string" ? extractCleanText(data.followUpQuestion) : "";
+    const rawInsight = typeof data?.insight === "string" ? extractCleanText(data.insight) : "";
+    const rawTakeaway = typeof data?.takeaway === "string" ? extractCleanText(data.takeaway) : "";
+
+    return {
+      reflection: rawRef ? rawRef.slice(0, 600) : null,
+      followUpQuestion: rawQ ? rawQ.slice(0, 300) : null,
+      insight: rawInsight ? rawInsight.slice(0, 600) : null,
+      takeaway: rawTakeaway ? rawTakeaway.slice(0, 200) : null,
+      generationMode: data?.generationMode === "gemma" ? "gemma" : "builtin",
+    };
   } catch {
-    return null;
+    return { reflection: null, followUpQuestion: null, generationMode: "builtin" };
   }
+}
+
+export async function generateReflection(input: {
+  challengeTitle: string;
+  observation: string;
+}): Promise<string | null> {
+  const res = await requestReflection(input);
+  return res.reflection;
 }

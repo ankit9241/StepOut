@@ -16,12 +16,12 @@ import {
 export const Route = createFileRoute("/go")({
   head: () => ({
     meta: [
-      { title: "Challenge active — StepOut" },
-      { name: "description", content: "Your world is waiting. Put your phone away." },
-      { property: "og:title", content: "Challenge active — StepOut" },
+      { title: "Mission Active — The Invisible Mission" },
+      { name: "description", content: "Put your phone away. The physical world is waiting." },
+      { property: "og:title", content: "Mission Active — The Invisible Mission" },
       {
         property: "og:description",
-        content: "A distraction-free timer while you're out in the real world.",
+        content: "A distraction-free active mission screen while you explore the real world.",
       },
     ],
   }),
@@ -67,28 +67,37 @@ function GoPage() {
       <div className="page-max flex w-full items-center justify-between py-6">
         <span className="eyebrow !text-night-foreground/60">
           {s.status === "completed"
-            ? "Challenge complete"
+            ? "Mission Completed"
             : s.status === "paused"
-              ? "Paused"
-              : "Challenge active"}
+              ? "Mission Paused"
+              : "The Invisible Mission · Active"}
         </span>
         <Link
           to="/challenge"
           className="eyebrow !text-night-foreground/60 hover:!text-night-foreground"
         >
-          Briefing
+          View Briefing ↗
         </Link>
       </div>
 
       {s.status !== "completed" ? (
         <div className="page-max flex w-full flex-1 flex-col justify-center py-10">
-          <p className="eyebrow !text-primary">Your world is waiting.</p>
-          <h1 className="display-hero mt-6 max-w-5xl">{challenge.title}</h1>
-          <p className="mt-8 max-w-lg text-lg opacity-75">
-            {challenge.steps[0]} Put your phone away. Come back when you're ready.
-          </p>
+          <p className="eyebrow !text-primary">Step out. Lock your screen.</p>
+          <h1 className="display-hero mt-6 max-w-4xl">{challenge.title}</h1>
 
-          <div className="mt-16 flex flex-wrap items-end justify-between gap-8">
+          {/* Observation Goal highlight */}
+          <div className="mt-8 max-w-2xl rounded-xl border border-night-foreground/15 bg-night-foreground/5 p-6 backdrop-blur">
+            <p className="eyebrow !text-primary">Your Observation Goal</p>
+            <p className="display-md mt-2 italic text-night-foreground">
+              “{challenge.curiosityPrompt}”
+            </p>
+            <p className="mt-4 text-sm text-night-foreground/60 leading-relaxed">
+              Lock your phone now. StepOut doesn't track location or require keeping this page open.
+              Your session is saved locally right here on this device.
+            </p>
+          </div>
+
+          <div className="mt-14 flex flex-wrap items-end justify-between gap-8">
             <div>
               <p
                 className="font-mono text-5xl tabular-nums md:text-7xl"
@@ -98,16 +107,22 @@ function GoPage() {
                 {fmtClock(elapsed)}
               </p>
               <p className="eyebrow mt-2 !text-night-foreground/50">
-                of {fmtClock(target)} suggested
+                of {fmtClock(target)} suggested · Timer is a gentle companion, not proof of presence
               </p>
             </div>
             <div className="flex items-center gap-6">
               {s.status === "active" ? (
-                <button onClick={() => update(pause(s, Date.now()))} className="btn-ghost">
+                <button
+                  onClick={() => update(pause(s, Date.now()))}
+                  className="rounded-full border border-night-foreground/30 px-6 py-3 text-sm font-medium hover:border-night-foreground hover:bg-night-foreground/10 transition"
+                >
                   Pause
                 </button>
               ) : (
-                <button onClick={() => update(start(s, Date.now()))} className="btn-ghost">
+                <button
+                  onClick={() => update(start(s, Date.now()))}
+                  className="rounded-full border border-night-foreground/30 px-6 py-3 text-sm font-medium hover:border-night-foreground hover:bg-night-foreground/10 transition"
+                >
                   Resume
                 </button>
               )}
@@ -116,6 +131,7 @@ function GoPage() {
               </button>
             </div>
           </div>
+
           <div className="mt-10 h-px w-full bg-night-foreground/15">
             <div
               className="h-px bg-primary transition-[width] duration-500"
@@ -125,14 +141,19 @@ function GoPage() {
         </div>
       ) : (
         <div className="page-max flex w-full flex-1 flex-col justify-center py-10 animate-fade-up">
-          <p className="eyebrow !text-primary">{fmtClock(s.elapsedSeconds)} away from the screen</p>
+          <p className="eyebrow !text-primary">
+            {fmtClock(s.elapsedSeconds)} in the physical world
+          </p>
           <h1 className="display-hero mt-6">
-            Back from the <em>real world?</em>
+            Welcome back from the <em>real world.</em>
           </h1>
-          <p className="mt-6 text-lg opacity-75">Tell us what you noticed.</p>
+          <p className="mt-6 max-w-lg text-lg opacity-80 leading-relaxed">
+            Your mission is done. Let's enter the return dialogue to record what you actually
+            observed before the memory fades.
+          </p>
           <div className="mt-12">
             <button onClick={() => navigate({ to: "/return" })} className="btn-primary">
-              Continue to reflection ↗
+              Begin Return Dialogue ↗
             </button>
           </div>
         </div>

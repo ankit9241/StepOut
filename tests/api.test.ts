@@ -133,6 +133,53 @@ describe("StepOut API Endpoints", () => {
       expect(data.reflection.length).toBeLessThanOrEqual(600);
     });
 
+    it("generates an adaptive follow-up question for step: follow_up", async () => {
+      const payload = {
+        challengeTitle: "The overlooked detail",
+        observation: "I noticed green moss growing in the deep crack between the stone steps.",
+        step: "follow_up",
+      };
+
+      const req = new Request("http://localhost:3000/api/reflections/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const res = await handleApiRequest(req);
+      expect(res.status).toBe(200);
+
+      const data = await res.json();
+      expect(data.followUpQuestion).toBeDefined();
+      expect(typeof data.followUpQuestion).toBe("string");
+      expect(data.followUpQuestion.endsWith("?")).toBe(true);
+    });
+
+    it("generates grounded insight and takeaway for step: synthesis", async () => {
+      const payload = {
+        challengeTitle: "The overlooked detail",
+        observation: "I noticed green moss growing in the deep crack between the stone steps.",
+        step: "synthesis",
+        followUpQuestion: "Did you notice it right away, or after pausing?",
+        followUpAnswer: "Only after sitting still for two minutes.",
+      };
+
+      const req = new Request("http://localhost:3000/api/reflections/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const res = await handleApiRequest(req);
+      expect(res.status).toBe(200);
+
+      const data = await res.json();
+      expect(data.insight).toBeDefined();
+      expect(data.takeaway).toBeDefined();
+      expect(typeof data.insight).toBe("string");
+      expect(typeof data.takeaway).toBe("string");
+    });
+
     it("rejects empty observation with 400 Bad Request", async () => {
       const payload = {
         challengeTitle: "The overlooked detail",
